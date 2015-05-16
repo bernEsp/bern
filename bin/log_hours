@@ -3,22 +3,24 @@
 require 'excon'
 require 'net/smtp'
 
-ulr = 'https://dev.unosquare.com/redmine/time_entries.json'
+url = 'https://dev.unosquare.com/redmine/time_entries.json'
 
 connection = Excon.new(url)
 headers = {'Content-Type' => 'application/json',
   'X-Redmine-API-Key' => '4f5164bb1f9764bc743fe787b2dbbd361873bf63'
 }
 params = {
-  "time_entry": {
-    "issue_id": "5836",
-    "spent_on": "2015-05-18",
-    "hours": "8",
-    "activity_id": "9"
+  "time_entry" => {
+    "issue_id" => "5836",
+    "spent_on" => "2015-05-18",
+    "hours"=> "8",
+    "activity_id"=>"9"
   }
 }
-response = connection.post(header: headers, query: params)
-
-smtp = Net::SMTP.start('smtp.sendgrid.net', 587,'heroku.com', ENV['SENDGRID_ACCOUNT'], ENV['SENDGRID_PASSWORD'], :plain).enable_starttls
-smtp.send_message response, 'bernardo@bern.herokuapp.com','bernardo.galindo@unosquare.com'
-smtp.finish
+#response = connection.post(header: headers, query: params)
+response = 'test' + headers.to_s + params.to_s
+Net::SMTP.start('smtp.sendgrid.net', 587,'heroku.com', ENV['SENDGRID_ACCOUNT'], ENV['SENDGRID_PASSWORD'], :plain) do |smtp|
+  smtp.enable_starttls
+  smtp.send_message response, 'bernardo@bern.herokuapp.com','bernardo.galindo@unosquare.com'
+  smtp.finish
+end
