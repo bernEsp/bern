@@ -17,11 +17,14 @@ params = {
     "activity_id"=>"9"
   }
 }
-#response = connection.post(header: headers, query: params)
-response = 'test' + headers.to_s + params.to_s
-smtp = Net::SMTP.new('smtp.sendgrid.net', '587')
-smtp.start('heroku.com', ENV['SENDGRID_USERNAME'], ENV['SENDGRID_PASSWORD'], :plain) do |smtp|
-  smtp.enable_starttls
-  smtp.send_message response, 'bernardo@bern.herokuapp.com','bernardo.galindo@unosquare.com'
-  smtp.finish
+if DateTime.now.strftime('%u').to_i < 6
+  response = connection.post(header: headers, query: params)
+  smtp = Net::SMTP.new('smtp.sendgrid.net', '587')
+  smtp.start('heroku.com', ENV['SENDGRID_USERNAME'], ENV['SENDGRID_PASSWORD'], :plain) do |smtp|
+    smtp.enable_starttls
+    smtp.send_message response, 'bernardo@bern.herokuapp.com','bernardo.galindo@unosquare.com'
+    smtp.finish
+  end
+else
+  response = 'Hoy no es dia de registrar pero estoy funcionando'
 end
