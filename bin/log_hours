@@ -2,6 +2,7 @@
 
 require 'excon'
 require 'net/smtp'
+require 'newrelic_rpm'
 
 url = 'https://dev.unosquare.com/redmine/time_entries.json'
 
