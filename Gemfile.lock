@@ -2,6 +2,7 @@ GEM
   remote: https://rubygems.org/
   specs:
     excon (0.45.3)
+    newrelic_rpm (3.11.2.286)
     rack (1.6.1)
 
 PLATFORMS
@@ -9,4 +10,5 @@ PLATFORMS
 
 DEPENDENCIES
   excon
+  newrelic_rpm
   rack
