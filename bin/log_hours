@@ -19,7 +19,7 @@ params = {
 }
 #response = connection.post(header: headers, query: params)
 response = 'test' + headers.to_s + params.to_s
-smtp = Net::SMTP.new('smpt.sendgrid.net', 587)
+smtp = Net::SMTP.new('smtp.sendgrid.net', '587')
 smtp.start('heroku.com', ENV['SENDGRID_USERNAME'], ENV['SENDGRID_PASSWORD'], :plain) do |smtp|
   smtp.enable_starttls
   smtp.send_message response, 'bernardo@bern.herokuapp.com','bernardo.galindo@unosquare.com'
