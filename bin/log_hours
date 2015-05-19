@@ -5,6 +5,7 @@ require 'net/smtp'
 require 'newrelic_rpm'
 
 url = 'https://dev.unosquare.com/redmine/time_entries.json'
+Excon.defaults[:ssl_verify_peer] = false
 
 connection = Excon.new(url)
 headers = {'Content-Type' => 'application/json',
