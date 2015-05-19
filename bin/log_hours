@@ -24,7 +24,7 @@ if DateTime.now.strftime('%u').to_i < 6
   smtp = Net::SMTP.new('smtp.sendgrid.net', '587')
   smtp.start('heroku.com', ENV['SENDGRID_USERNAME'], ENV['SENDGRID_PASSWORD'], :plain) do |smtp|
     smtp.enable_starttls
-    smtp.send_message response, 'bernardo@bern.herokuapp.com','bernardo.galindo@unosquare.com'
+    smtp.send_message response.inspect.to_s, 'bernardo@bern.herokuapp.com','bernardo.galindo@unosquare.com'
     smtp.finish
   end
 else
