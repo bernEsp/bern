@@ -15,7 +15,7 @@ params = {
   "time_entry" => {
     "issue_id" => "5836",
     "spent_on" => DateTime.now.strftime('%F'),
-    "hours"=> "8",
+    "hours"=> "7",
     "activity_id"=>"9"
   }
 }
