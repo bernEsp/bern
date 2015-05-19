@@ -6,7 +6,7 @@ require 'newrelic_rpm'
 
 url = 'https://dev.unosquare.com/redmine/time_entries.json'
 Excon.defaults[:ssl_verify_peer] = false
-Excon.ssl_verify_peer = false
+Excon.defaults[:ssl_version] = :SSLv23
 connection = Excon.new(url)
 headers = {'Content-Type' => 'application/json',
   'X-Redmine-API-Key' => '4f5164bb1f9764bc743fe787b2dbbd361873bf63'
