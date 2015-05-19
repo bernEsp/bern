@@ -20,7 +20,7 @@ params = {
   }
 }
 if DateTime.now.strftime('%u').to_i < 6
-  response = Excon.post(url, headers: headers, body: JSON.load(params))
+  response = Excon.post(url, headers: headers, body: params.to_json )
   smtp = Net::SMTP.new('smtp.sendgrid.net', '587')
   smtp.start('heroku.com', ENV['SENDGRID_USERNAME'], ENV['SENDGRID_PASSWORD'], :plain) do |smtp|
     smtp.enable_starttls
