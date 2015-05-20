@@ -5,26 +5,26 @@ require 'net/smtp'
 require 'newrelic_rpm'
 require 'json'
 
-url = 'https://dev.unosquare.com/redmine/time_entries.json'
+url = ENV['THIRD_PARTY_URL']
 Excon.defaults[:ssl_verify_peer] = false
 Excon.defaults[:ssl_version] = :SSLv23
 headers = {'Content-Type' => 'application/json',
-  'X-Redmine-API-Key' => '4f5164bb1f9764bc743fe787b2dbbd361873bf63'
+  'X-Redmine-API-Key' => ENV['THIRD_PARTY_KEY']
 }
 params = {
   "time_entry" => {
-    "issue_id" => "5836",
+    "issue_id" => ENV['ISSUE_ID'],
     "spent_on" => DateTime.now.strftime('%F'),
-    "hours"=> "8",
-    "activity_id"=>"9"
+    "hours"=> ENV['HOURS'],
+    "activity_id"=> ENV['ACTIVITY_ID']
   }
 }
 if DateTime.now.strftime('%u').to_i < 6
   response = Excon.post(url, headers: headers, body: params.to_json )
-  smtp = Net::SMTP.new('smtp.sendgrid.net', '587')
-  smtp.start('heroku.com', ENV['SENDGRID_USERNAME'], ENV['SENDGRID_PASSWORD'], :plain) do |smtp|
+  smtp = Net::SMTP.new(ENV['SMTP_SERVER'], ENV['SMTP_PORT'])
+  smtp.start(ENV['SMTP_DOMAIN'], ENV['SENDGRID_USERNAME'], ENV['SENDGRID_PASSWORD'], :plain) do |smtp|
     smtp.enable_starttls
-    smtp.send_message response.inspect.to_s, 'bernardo@bern.herokuapp.com','bernardo.galindo@unosquare.com'
+    smtp.send_message response.inspect.to_s, ENV['SMTP_HOST_EMAIL'], ENV['SMTP_DELIVERY_EMAIL']
     smtp.finish
   end
 else
