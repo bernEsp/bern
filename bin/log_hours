@@ -24,7 +24,7 @@ if DateTime.now.strftime('%u').to_i < 6
   smtp = Net::SMTP.new(ENV['SMTP_SERVER'], ENV['SMTP_PORT'])
   smtp.start(ENV['SMTP_DOMAIN'], ENV['SENDGRID_USERNAME'], ENV['SENDGRID_PASSWORD'], :plain) do |smtp|
     smtp.enable_starttls
-    smtp.open_message_stream(ENV['SMTP_HOST_EMAIL', ENV['SMTP_DELIVERY_EMAIL']) do |message|
+    smtp.open_message_stream(ENV['SMTP_HOST_EMAIL'], ENV['SMTP_DELIVERY_EMAIL']) do |message|
       message.puts "From: #{ENV['SMTP_HOST_EMAIL']}"
       message.puts "To: #{ENV['SMTP_DELIVERY_EMAIL']}"
       message.puts ' I have just logged your hours in your system.Atte Bern'
