@@ -1,0 +1,29 @@
+#!/usr/bin/env ruby
+
+
+require 'date'
+require 'newrelic_rpm'
+require './lib/cloud_logger/redmine'
+require './lib/notifications/mailer'
+
+@url = ENV['THIRD_PARTY_URL']
+@headers = {
+  'X-Redmine-API-Key' => ENV['THIRD_PARTY_KEY']
+}
+@params = {
+  "time_entry" => {
+    "issue_id" => ENV['ISSUE_ID'],
+    "spent_on" => DateTime.now.strftime('%F'),
+    "hours"=> ENV['HOURS'],
+    "activity_id"=> ENV['ACTIVITY_ID']
+  }
+}
+if DateTime.now.strftime('%u').to_i < 6
+  redmine = CloudLogger::Redmine.new(url: @url)
+  response = redmine.log_hours(body: @params, custom_headers: @headers)
+  puts response.inspect
+  mailer = Notifications::Mailer.new(smtp_server: ENV['SMTP_SERVER'], smtp_port: ENV['SMTP_PORT'], smtp_username: ENV['SENDGRID_USERNAME'], smtp_password: ENV['SENDGRID_PASSWORD'], smtp_domain: ENV['SMTP_DOMAIN'])
+  if response.status == 200 || response.status == 201
+    mailer.send(host_email: ENV['SMTP_HOST_EMAIL'], delivery_email: ENV['SMTP_DEVELIVERY_EMAIL'])
+  end
+end
