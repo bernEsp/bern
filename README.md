@@ -1,5 +1,5 @@
-# bern
-simplistic cloud bot. Bern performs tasks for you. Now is logging hours.
+# Bern
+Bern is a very simple cloud bot to perform annoying tasks such as logging hours in Redmine
 
 # How can I use it?
 
@@ -19,20 +19,46 @@ You need to setup a smtp server and set the env vars
 You need to get your smtp servers settings and set as env vars
 
 
-#### Instructions
+#### Instructions for the cloud
 
-1. Fork and download this repo
-2. Hosted in heroku or whatever.
-3. Add SMTP server and newrelic
-4. Setup the env vars
-5. test your app is running visit your url in heroku appname.heroku.com
-6. Schedule the redmine_log_hours job
+1. Fork and clone this repo
+2. Go to the root folder
+3. Install the heroku toolbelt (https://toolbelt.heroku.com/)
+4. Run this in the folder where you cloned the project to create a heroku app:
+    $ heroku login (and enter your heroku credentials)
+    $ heroku create
+    $ git push heroku master
+5. Add New Relic:
+    $ heroku addons:create newrelic:wayne
+6. Add a SMTP server:
+    $ heroku addons:create sendgrid:starter
+7. Setup the env vars:
+    Run heroku config. You should have already the SENDGRID_PASSWORD, SENDGRID_USERNAME & NEW_RELIC_LICENSE_KEY, so please set these variables:
+
+    $ heroku config:set SMTP_DELIVERY_EMAIL=%EMAIL_TO_RECEIVE_NOTIFICATIONS%
+    $ heroku config:set SMTP_PORT=587
+    $ heroku config:set SMTP_DOMAIN=heroku.com
+    $ heroku config:set SMTP_SERVER=smtp.sendgrid.net
+    $ heroku config:set SMTP_HOST_EMAIL=%RANDOM_USER%@%HEROKU_APP_NAME%.herokuapp.com
+
+    $ heroku config:set NEW_RELIC_APP_NAME=%APP_NAME%
+
+    $ heroku config:set ACTIVITY_ID=9
+    $ heroku config:set HOURS=8
+    $ heroku config:set ISSUE_ID=4547
+    $ heroku config:set THIRD_PARTY_KEY=%API_KEY%
+    $ heroku config:set THIRD_PARTY_URL=%REDMINE_URL%/time_entries.json
+
+    If you find something like this %SOMETHING_HERE% it means that a user input is required.
+    So please look for the information required and substitute that string with the one you want.
+7. Your app should be running in in heroku: %HEROKU_APP_NAME%.herokuapp.com
+8. Schedule the redmine_log_hours job
 
 
 #### Logger
 
-Bern performs a task that logs hours in redmin therefore you need the
-settings and payload of your **REDMINE SERVER
+Bern performs a task to logs hours in redmine, therefore you need a little bit of
+configuration and settings and payload of your **REDMINE SERVER
 
 #### ENV VARS
 
@@ -40,7 +66,7 @@ settings and payload of your **REDMINE SERVER
   ```ruby
   SENDGRID_PASSWORD:     smtp password
   SENDGRID_USERNAME:     smtp username
-  SMTP_DEVELIVERY_EMAIL: notification email
+  SMTP_DELIVERY_EMAIL:   notification email
   SMTP_DOMAIN:           smtp server domain
   SMTP_HOST_EMAIL:       host email, your server email for example 'username@bern.heroku.com'
   SMTP_PORT:             smtp port
@@ -62,7 +88,7 @@ settings and payload of your **REDMINE SERVER
   NEW_RELIC_LOG:
   ```
 
-#### HOW AM I USING?
+#### HOW AM I USING IT?
 
 I've uploaded bern to a heroku app. I've added the scheduler addon and setup to
 run every day the script `redmine_log_hours`
@@ -74,7 +100,7 @@ just setup the env vars for redmine.
 
 Bern is logging to redmine using the [redmine api](http://www.redmine.org/projects/redmine/wiki/Rest_api)
 
-#### Can I collaborate to bern cloud bot?
+#### Can I collaborate to Bern cloud bot?
 
 Yes you can. Please fork this repo add and test your integration and send me
 the pull request.
