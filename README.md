@@ -16,7 +16,17 @@ You need to setup a smtp server and set the env vars
 
 #### HOST REMOTELY
 
-You need to get your smtp servers setting and set as env vars
+You need to get your smtp servers settings and set as env vars
+
+
+#### Instructions
+
+1. Fork and download this repo
+2. Hosted in heroku or whatever.
+3. Add SMTP server and newrelic
+4. Setup the env vars
+5. test your app is running visit your url in heroku appname.heroku.com
+6. Schedule the redmine_log_hours job
 
 
 #### Logger
