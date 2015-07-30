@@ -20,9 +20,9 @@ module Notifications
         smtp.open_message_stream(host_email, delivery_email) do |message|
           message.puts "From: #{host_email}"
           message.puts "To: #{delivery_email}"
-          message.puts 'Subject: I have just logged your hours in your system.Atte Bern'
+          message.puts 'Subject: I have just logged hours for you'
           message.puts
-          message.puts 'You have just logged your hours tomorrow you are going to receive a new message, if you want to deactivate your bot go to your server'
+          message.puts 'Just logged your hours. Please make sure I did correctly.'
         end
         smtp.finish
       end
