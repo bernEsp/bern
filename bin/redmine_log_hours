@@ -22,7 +22,7 @@ require './lib/notifications/mailer'
   "time_entry" => {
     "issue_id" => ENV['ISSUE_ID2'],
     "spent_on" => DateTime.now.strftime('%F'),
-    "hours"=> ENV['HOURS'],
+    "hours"=> ENV['HOURS2'],
     "activity_id"=> ENV['ACTIVITY_ID']
   }
 }
