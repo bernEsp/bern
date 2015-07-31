@@ -1,5 +1,5 @@
 # Bern
-Bern is a very simple cloud bot to perform annoying tasks such as logging hours in Redmine
+Bern is a simplistic cloud bot to perform annoying tasks such as logging hours in Redmine
 
 # How can I use it?
 
@@ -32,7 +32,11 @@ You need to get your smtp servers settings and set as env vars
     $ heroku addons:create newrelic:wayne
 6. Add a SMTP server:
     $ heroku addons:create sendgrid:starter
-7. Setup the env vars:
+7. Add a scheduler:
+    $ heroku addons:create scheduler:standard
+8. Go to https://dashboard.heroku.com/apps, find your app and click on it, look for the list of addons and open 'Heroku Scheduler'
+9. Enter 'redmine_log_hours' in the blank space, select the dino size='free', frequency='daily' and next due=13:00 UTC (8 am CDT)
+10. Setup the env vars:
     Run heroku config. You should have already the SENDGRID_PASSWORD, SENDGRID_USERNAME & NEW_RELIC_LICENSE_KEY, so please set these variables:
 
     $ heroku config:set SMTP_DELIVERY_EMAIL=%EMAIL_TO_RECEIVE_NOTIFICATIONS%
@@ -51,8 +55,7 @@ You need to get your smtp servers settings and set as env vars
 
     If you find something like this %SOMETHING_HERE% it means that a user input is required.
     So please look for the information required and substitute that string with the one you want.
-7. Your app should be running in in heroku: %HEROKU_APP_NAME%.herokuapp.com
-8. Schedule the redmine_log_hours job
+11. Your app should be running in in heroku: %HEROKU_APP_NAME%.herokuapp.com
 
 
 #### Logger
