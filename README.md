@@ -88,25 +88,35 @@ Bern is logging to redmine using the [redmine api](http://www.redmine.org/projec
       `$ heroku addons:create scheduler:standard`
 
 8.  Setup the env vars:
-    Run heroku config. You should have already the SENDGRID_PASSWORD, SENDGRID_USERNAME &
-    NEW_RELIC_LICENSE_KEY, so please set these variables:
 
-      `$ heroku config:set SMTP_DELIVERY_EMAIL=#{EMAIL_TO_RECEIVE_NOTIFICATIONS}`
-      `$ heroku config:set SMTP_PORT=#{SMPT_PORT}`
-      `$ heroku config:set SMTP_DOMAIN=#{HOST_DOMAIN}`
-      `$ heroku config:set SMTP_SERVER=#{SMTP_ADDRESS}`
-      `$ heroku config:set SMTP_HOST_EMAIL=#{YOUR_EMAIL}`
+  Run heroku config. You should have already the SENDGRID_PASSWORD, SENDGRID_USERNAME & NEW_RELIC_LICENSE_KEY, so please set these variables:
 
-      `$ heroku config:set NEW_RELIC_APP_NAME=#{APP_NAME}`
+  ```bash
+      $ heroku config:set SMTP_DELIVERY_EMAIL=#{EMAIL_TO_RECEIVE_NOTIFICATIONS}
+      
+      $ heroku config:set SMTP_PORT=#{SMPT_PORT}
+      
+      $ heroku config:set SMTP_DOMAIN=#{HOST_DOMAIN}
+      
+      $ heroku config:set SMTP_SERVER=#{SMTP_ADDRESS}
+      
+      $ heroku config:set SMTP_HOST_EMAIL=#{YOUR_EMAIL}
+      
+      $ heroku config:set NEW_RELIC_APP_NAME=#{APP_NAME}
 
-      `$ heroku config:set ACTIVITY_ID=#{ID}`
-      `$ heroku config:set HOURS={HOURS}`
-      `$ heroku config:set ISSUE_ID=#{ISSUE_ID_IN_REDMINE}`
-      `$ heroku config:set THIRD_PARTY_KEY=#{API_KEY}`
-      `$ heroku config:set THIRD_PARTY_URL=#{REDMINE_URL}/time_entries.json`
+      $ heroku config:set ACTIVITY_ID=#{ID}
+      
+      $ heroku config:set HOURS={HOURS}
+      
+      $ heroku config:set ISSUE_ID=#{ISSUE_ID_IN_REDMINE}
+      
+      $ heroku config:set THIRD_PARTY_KEY=#{API_KEY}
+      
+      $ heroku config:set THIRD_PARTY_URL=#{REDMINE_URL}/time_entries.json
+  ```
 
-    If you find something like this #{SOMETHING_HERE} it means that a user input is required.
-    So please look for the information required and substitute that string with the one you want.
+  If you find something like this #{SOMETHING_HERE} it means that a user input is required.
+  So please look for the information required and substitute that string with the one you want.
     
 9.  Go to https://dashboard.heroku.com/apps, find your app and click on it, look for the list of addons and open 'Heroku Scheduler'
 
