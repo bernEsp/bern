@@ -1,0 +1,5 @@
+-
+  time_entry:
+    issue_id: <%= ENV['ISSUE_ID'] %>
+    hours: <% ENV['HOURS'] %>
+    activity_id: <% ENV['ACTIVITY_ID'] %>
