@@ -18,47 +18,6 @@ You need to setup a smtp server and set the env vars
 
 You need to get your smtp servers settings and set as env vars
 
-
-#### Instructions for the cloud
-
-1.  Fork and clone this repo
-2.  Go to the root folder
-3.  Install the heroku toolbelt (https://toolbelt.heroku.com/)
-4.  Run this in the folder where you cloned the project to create a heroku app:
-      `$ heroku login (and enter your heroku credentials)`
-      `$ heroku create`
-      `$ git push heroku master`
-5.  Add New Relic:
-      `$ heroku addons:create newrelic:wayne`
-6.  Add a SMTP server:
-      `$ heroku addons:create sendgrid:starter`
-7.  Add a scheduler:
-      `$ heroku addons:create scheduler:standard`
-8.  Setup the env vars:
-    Run heroku config. You should have already the SENDGRID_PASSWORD, SENDGRID_USERNAME &
-    NEW_RELIC_LICENSE_KEY, so please set these variables:
-
-      `$ heroku config:set SMTP_DELIVERY_EMAIL=%EMAIL_TO_RECEIVE_NOTIFICATIONS%`
-      `$ heroku config:set SMTP_PORT=587`
-      `$ heroku config:set SMTP_DOMAIN=heroku.com`
-      `$ heroku config:set SMTP_SERVER=smtp.sendgrid.net`
-      `$ heroku config:set SMTP_HOST_EMAIL=%RANDOM_USER%@%HEROKU_APP_NAME%.herokuapp.com`
-
-      `$ heroku config:set NEW_RELIC_APP_NAME=%APP_NAME%`
-
-      `$ heroku config:set ACTIVITY_ID=9`
-      `$ heroku config:set HOURS=8`
-      `$ heroku config:set ISSUE_ID=%ISSUE_ID_IN_REDMINE%`
-      `$ heroku config:set THIRD_PARTY_KEY=%API_KEY%`
-      `$ heroku config:set THIRD_PARTY_URL=%REDMINE_URL%/time_entries.json`
-
-    If you find something like this %SOMETHING_HERE% it means that a user input is required.
-    So please look for the information required and substitute that string with the one you want.
-9.  Go to https://dashboard.heroku.com/apps, find your app and click on it, look for the list of addons and open 'Heroku Scheduler'
-10. Enter 'redmine_log_hours' in the blank space, select the dino size='free', frequency='daily' and next due=13:00 UTC (8 am CDT)
-11. Your app should be running in in heroku: %HEROKU_APP_NAME%.herokuapp.com
-
-
 #### Logger
 
 Bern performs a task to logs hours in redmine, therefore you need a little bit of
@@ -103,6 +62,57 @@ Heroku automatically setup for you all env vars as bern requires, then I've
 just setup the env vars for redmine.
 
 Bern is logging to redmine using the [redmine api](http://www.redmine.org/projects/redmine/wiki/Rest_api)
+
+#### Instructions for heroku (thanks @Ivanknmk)
+
+1.  Fork and clone this repo
+2.  Go to the root folder
+3.  Install the heroku toolbelt (https://toolbelt.heroku.com/)
+4.  Run this in the folder where you cloned the project to create a heroku app:
+      `$ heroku login (and enter your heroku credentials)`
+
+      `$ heroku create`
+      
+      `$ git push heroku master`
+      
+5.  Add New Relic:
+
+      `$ heroku addons:create newrelic:wayne`
+
+6.  Add a SMTP server:
+
+      `$ heroku addons:create sendgrid:starter`
+
+7.  Add a scheduler:
+
+      `$ heroku addons:create scheduler:standard`
+
+8.  Setup the env vars:
+    Run heroku config. You should have already the SENDGRID_PASSWORD, SENDGRID_USERNAME &
+    NEW_RELIC_LICENSE_KEY, so please set these variables:
+
+      `$ heroku config:set SMTP_DELIVERY_EMAIL=#{EMAIL_TO_RECEIVE_NOTIFICATIONS}`
+      `$ heroku config:set SMTP_PORT=#{SMPT_PORT}`
+      `$ heroku config:set SMTP_DOMAIN=#{HOST_DOMAIN}`
+      `$ heroku config:set SMTP_SERVER=#{SMTP_ADDRESS}`
+      `$ heroku config:set SMTP_HOST_EMAIL=#{YOUR_EMAIL}`
+
+      `$ heroku config:set NEW_RELIC_APP_NAME=#{APP_NAME}`
+
+      `$ heroku config:set ACTIVITY_ID=#{ID}`
+      `$ heroku config:set HOURS={HOURS}`
+      `$ heroku config:set ISSUE_ID=#{ISSUE_ID_IN_REDMINE}`
+      `$ heroku config:set THIRD_PARTY_KEY=#{API_KEY}`
+      `$ heroku config:set THIRD_PARTY_URL=#{REDMINE_URL}/time_entries.json`
+
+    If you find something like this #{SOMETHING_HERE} it means that a user input is required.
+    So please look for the information required and substitute that string with the one you want.
+    
+9.  Go to https://dashboard.heroku.com/apps, find your app and click on it, look for the list of addons and open 'Heroku Scheduler'
+
+10. Enter the name of ruby script 'redmine_log_hours' in the blank space, and set the frequency of your schedule.
+
+11. Your app should be running in in heroku: app_name.heroku.com
 
 #### Can I improve this awesome tool? Is it possible to collaborate?
 
