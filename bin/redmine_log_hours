@@ -6,6 +6,15 @@ require 'newrelic_rpm'
 require './lib/cloud_logger/redmine'
 require './lib/notifications/mailer'
 
+default_comments = ['Working in new features and fixing bugs']
+
+@comments = ENV.fetch('COMMENTS', default_comments)
+@comments = @comments.split(';') if @comments.is_a? String
+@rand_size = @comments.size
+@holidays = ENV.fetch('HOLIDAYS', [])
+@holidays =  @holidays.split(',') if @holidays.is_a? String
+
+
 @url = ENV['THIRD_PARTY_URL']
 @headers = {
   'X-Redmine-API-Key' => ENV['THIRD_PARTY_KEY']
@@ -15,10 +24,12 @@ require './lib/notifications/mailer'
     "issue_id" => ENV['ISSUE_ID'],
     "spent_on" => DateTime.now.strftime('%F'),
     "hours"=> ENV['HOURS'],
-    "activity_id"=> ENV['ACTIVITY_ID']
+    "activity_id"=> ENV['ACTIVITY_ID'],
+    "comments" => @comments[Random.new.rand(@rand_size)]
   }
 }
-if DateTime.now.strftime('%u').to_i < 6
+
+if DateTime.now.strftime('%u').to_i < 6 && @holidays.none? DateTime.now.strftime('%F')
   redmine = CloudLogger::Redmine.new(url: @url)
   response = redmine.log_hours(body: @params, custom_headers: @headers)
   puts response.inspect

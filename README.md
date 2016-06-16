@@ -25,6 +25,10 @@ configuration and settings and payload of your **REDMINE SERVER
 
 #### ENV VARS
 
+  COMPANY HOLIDAYS:
+  HOLIDAYS               list of holidays in this format 'yyyy-mm-dd' divided by comma
+
+
   SMTP SERVER:
   ```ruby
   SENDGRID_PASSWORD:     smtp password
@@ -43,6 +47,8 @@ configuration and settings and payload of your **REDMINE SERVER
   ISSUE_ID:              issue id
   THIRD_PARTY_KEY:       redmine api key
   THIRD_PARTY_URL:       redmine url
+  # optional
+  COMMENTS               redmine random comments divided by semicolon
   ```
   NEWRELIC:
   ```ruby
