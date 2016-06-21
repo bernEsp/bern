@@ -29,7 +29,7 @@ default_comments = ['Working in new features and fixing bugs']
   }
 }
 
-if DateTime.now.strftime('%u').to_i < 6 && @holidays.none? DateTime.now.strftime('%F')
+if DateTime.now.strftime('%u').to_i < 6 && @holidays.none? {|holiday| holiday == DateTime.now.strftime('%F') }
   redmine = CloudLogger::Redmine.new(url: @url)
   response = redmine.log_hours(body: @params, custom_headers: @headers)
   puts response.inspect
