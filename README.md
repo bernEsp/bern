@@ -2,10 +2,36 @@
 Bern is a simplistic cloud bot to perform annoying tasks such as logging hours in Redmine
 
 # How can I use it?
+ 1. Heroku or background job
 
-Bern bot contains a ruby script that you can run every day or create a
+    Bern bot contains a ruby script that you can run every day or create a
 background job that run for you at certain hour.
 
+ 2. Bern Cli
+
+    Bern bot now have cli app that can be use locally. This cli allows you
+    customize comments and date. You still need to export environment variables
+    to keep secret your sensitive info.
+
+    * Download the code
+    * add to your bashrc or bash_profile 
+      `export PATH="$HOME/canino_projects/bern/bin:$PATH"`
+    * reload your terminal `source ~/.bashrc` or `source ~/.bash_profile`
+    * run bern command
+    * if you can see the list of commands, you are good to go
+    
+    ##### redmine log hours
+    ```ruby
+      # with comments
+      bern redmine_log_hours -c my comments here
+      # with custom date
+      bern redmine_log_hours -d 2016-06-24
+    ```
+
+    ##### set environment variable
+    ```ruby
+      bern set_env -e activity_id -v 1
+    ```
 #### Requeriments
 
   SMTP SERVER, SET ENV VARS, NEWRELIC APP

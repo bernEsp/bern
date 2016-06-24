@@ -1,6 +1,4 @@
 #!/usr/bin/env ruby
-
-
 require 'date'
 require 'newrelic_rpm'
 require './lib/cloud_logger/redmine'

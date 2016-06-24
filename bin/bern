@@ -1,0 +1,35 @@
+#!/usr/bin/env ruby
+require './lib/cli/redmine_log_hour'
+require './lib/cli/set_env'
+require 'optparse'
+
+class BernInstructionError < NameError
+end
+
+begin
+  opt_parser =  OptionParser.new do |opts|
+    opts.banner = ' Usage: bern [command] [options] '
+    opts.on('-h', '--help', 'Print this help') do 
+      puts 'Usage: bern COMMAND [options]'
+      puts ''
+      puts ' Primary Commands'
+      puts ''
+      puts '    redmine_log_hour  # log time entries into redmine, use redmine -h for help' 
+      puts ''
+      puts '    set_env [options] # set environment variables in bern.env file, use set_env -h for help'
+      puts ''
+      exit
+    end
+  end
+
+  if ARGV.empty? || ARGV[0] == 'help'
+    opt_parser.parse %w[--help]
+    exit 2
+  else
+    instruction_opt = ARGV[0].split('_').collect{|x| x.capitalize }.join('')
+    instruction = self.class.const_get(instruction_opt).new(ARGV)
+    instruction.run
+  end
+rescue Errno::ENOENT
+  raise BernInstructionError, 'Unknow Instruction'
+end
