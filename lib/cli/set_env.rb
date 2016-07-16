@@ -7,7 +7,7 @@ class SetEnv
     args = SetEnvCli.parse(options)
     @name = args.name.upcase
     @value = args.value
-    @file = './bern.env'
+    @file = './.bern.env'
   end
 
   def run
