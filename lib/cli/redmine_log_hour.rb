@@ -12,7 +12,7 @@ class RedmineLogHour
   def initialize(options)
     args = RedmineLogCli.parse(options)
     @comment = args.comment 
-    @holidays = args.holidays
+    @holidays = args.holidays || []
     @third_party_key = args.third_party_key
     @third_party_url = args.third_party_url
     @issue_id = args.issue_id

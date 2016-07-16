@@ -21,7 +21,7 @@ class RedmineLogCli
       end
 
       opts.on('-dDate', '--date=DATE_SPENT_ON', 'set a custom date to log time yyyy-mm-dd') do |n|
-        args.date = Date.parse(n).strftime('%F')
+          args.date = Date.parse(n)
       end
 
       opts.on('-h', '--help', 'Print this help') do
@@ -37,7 +37,7 @@ class RedmineLogCli
   end
 
   def self.load_environment
-    File.read('./bern.env').gsub("\r\n","\n").split("\n").inject({}) do |bern_var, line|
+    File.read('./.bern.env').gsub("\r\n","\n").split("\n").inject({}) do |bern_var, line|
       r = line.match /\[(?<name>\w+)\]=(?<value>.*)\z/
       if r
         key = r[:name]
